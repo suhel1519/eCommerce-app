@@ -46,23 +46,23 @@ const secondaryItems = [
 export function AppSidebar() {
   const getNavClasses = ({ isActive }: { isActive: boolean }) =>
     isActive
-      ? "bg-primary text-primary-foreground font-medium"
-      : "text-muted-foreground hover:bg-muted hover:text-foreground";
+      ? "bg-primary text-primary-foreground font-medium animate-scale-in"
+      : "text-muted-foreground hover:bg-muted hover:text-foreground transition-all duration-200 hover-lift";
 
   return (
-    <Sidebar className="w-64 border-r bg-dashboard-sidebar">
-      <SidebarContent className="px-4 py-6">
+    <Sidebar className="w-64 border-r bg-card transition-colors duration-300">
+      <SidebarContent className="px-4 py-6 animate-fade-in">
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
             Main Navigation
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
-              {mainItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className="h-9">
+              {mainItems.map((item, index) => (
+                <SidebarMenuItem key={item.title} className="animate-fade-in" style={{ animationDelay: `${index * 50}ms` }}>
+                  <SidebarMenuButton asChild className="h-9 button-press">
                     <NavLink to={item.url} end className={getNavClasses}>
-                      <item.icon className="h-4 w-4" />
+                      <item.icon className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
                       <span>{item.title}</span>
                     </NavLink>
                   </SidebarMenuButton>
@@ -78,11 +78,11 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
-              {secondaryItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className="h-9">
+              {secondaryItems.map((item, index) => (
+                <SidebarMenuItem key={item.title} className="animate-fade-in" style={{ animationDelay: `${(index + mainItems.length) * 50}ms` }}>
+                  <SidebarMenuButton asChild className="h-9 button-press">
                     <NavLink to={item.url} className={getNavClasses}>
-                      <item.icon className="h-4 w-4" />
+                      <item.icon className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
                       <span>{item.title}</span>
                     </NavLink>
                   </SidebarMenuButton>
