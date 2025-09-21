@@ -11,13 +11,15 @@ import { AppProvider } from "@/contexts/AppContext";
 import { DashboardProvider } from "@/contexts/DashboardContext";
 import { AppSidebar } from "@/components/AppSidebar";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { NotificationsPanel } from "@/components/NotificationsPanel";
 import { AppHeader } from "@/components/AppHeader";
 
 // Lazy load pages for better performance
 const Dashboard = lazy(() => import("@/pages/Dashboard"));
 const Orders = lazy(() => import("@/pages/Orders"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
+
+// Lazy load heavy components
+const LazyNotificationsPanel = lazy(() => import("@/components/NotificationsPanel").then(module => ({ default: module.NotificationsPanel })));
 
 // Configure React Query with optimized defaults
 const queryClient = new QueryClient({
@@ -69,7 +71,9 @@ const App: React.FC = () => (
                           </Suspense>
                         </main>
                         <div className="hidden xl:block">
-                          <NotificationsPanel />
+                          <Suspense fallback={<div className="w-72 h-full bg-card animate-pulse" />}>
+                            <LazyNotificationsPanel />
+                          </Suspense>
                         </div>
                       </div>
                     </div>
