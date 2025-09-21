@@ -1,132 +1,240 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { CheckCircle, AlertCircle, Info, Clock } from "lucide-react";
+import React from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Bell, User, Bug } from "lucide-react";
+import { animations } from "@/lib/animations";
 
-const notifications = [
+interface NotificationItem {
+  id: string;
+  type: "bug" | "user" | "activity" | "system";
+  title: string;
+  time: string;
+}
+
+interface ActivityItem {
+  id: string;
+  user: string;
+  action: string;
+  time: string;
+  avatar: string;
+  avatarImage?: string;
+  color: string;
+}
+
+interface ContactItem {
+  id: string;
+  name: string;
+  avatar: string;
+  avatarImage?: string;
+  color: string;
+  status?: "online" | "offline";
+}
+
+const notifications: NotificationItem[] = [
   {
-    id: 1,
+    id: "1",
     type: "bug",
-    message: "You have a bug that needs....",
-    status: "urgent",
-    time: "2m ago",
-    icon: AlertCircle,
+    title: "You have a bug that needs...",
+    time: "Just now"
   },
   {
-    id: 2,
+    id: "2",
     type: "user",
-    message: "New user registered",
-    status: "info",
-    time: "5m ago", 
-    icon: Info,
+    title: "New user registered",
+    time: "59 minutes ago"
   },
   {
-    id: 3,
+    id: "3",
     type: "bug",
-    message: "You have a bug that needs....",
-    status: "urgent",
-    time: "10m ago",
-    icon: AlertCircle,
+    title: "You have a bug that needs...",
+    time: "12 hours ago"
   },
   {
-    id: 4,
+    id: "4",
     type: "system",
-    message: "Andi Lake subscribed to you",
-    status: "success",
-    time: "15m ago",
-    icon: CheckCircle,
-  },
-  {
-    id: 5,
-    type: "info",
-    message: "Modified a data in Page X",
-    status: "info", 
-    time: "20m ago",
-    icon: Info,
-  },
-  {
-    id: 6,
-    type: "info",
-    message: "Deleted a page in Project X",
-    status: "info",
-    time: "25m ago",
-    icon: Info,
-  },
+    title: "Andi Lane subscribed to you",
+    time: "Today, 11:59 AM"
+  }
 ];
 
-const activities = [
-  { name: "Hanty Carfy", action: "Submitted a bug", priority: "high" },
-  { name: "Brian Carty", action: "Submitted a bug", priority: "high" },
-  { name: "Orfynda Oyen", action: "Submitted a bug", priority: "high" },
-  { name: "Andi Lake", action: "Submitted a bug", priority: "high" },
-  { name: "Peri Mersion", action: "Submitted a bug", priority: "medium" },
-  { name: "Eric", action: "Submitted a bug", priority: "medium" },
+const activities: ActivityItem[] = [
+  {
+    id: "1",
+    user: "You",
+    action: "have a bug that needs...",
+    time: "Just now",
+    avatar: "Y",
+    avatarImage: "https://api.dicebear.com/7.x/fun-emoji/svg?seed=You&backgroundColor=transparent",
+    color: "bg-green-500"
+  },
+  {
+    id: "2",
+    user: "Released a new version",
+    action: "",
+    time: "59 minutes ago",
+    avatar: "R",
+    avatarImage: "https://api.dicebear.com/7.x/fun-emoji/svg?seed=Release&backgroundColor=transparent",
+    color: "bg-orange-500"
+  },
+  {
+    id: "3",
+    user: "Submitted a bug",
+    action: "",
+    time: "12 hours ago",
+    avatar: "S",
+    avatarImage: "https://api.dicebear.com/7.x/fun-emoji/svg?seed=Submit&backgroundColor=transparent",
+    color: "bg-blue-500"
+  },
+  {
+    id: "4",
+    user: "Modified A data in Page X",
+    action: "",
+    time: "Today, 11:59 AM",
+    avatar: "M",
+    avatarImage: "https://api.dicebear.com/7.x/fun-emoji/svg?seed=Modify&backgroundColor=transparent",
+    color: "bg-purple-500"
+  },
+  {
+    id: "5",
+    user: "Deleted a page in Project X",
+    action: "",
+    time: "Feb 2, 2023",
+    avatar: "D",
+    avatarImage: "https://api.dicebear.com/7.x/fun-emoji/svg?seed=Delete&backgroundColor=transparent",
+    color: "bg-gray-500"
+  }
 ];
 
-export function NotificationsPanel() {
+const contacts: ContactItem[] = [
+  {
+    id: "1",
+    name: "Natali Craig",
+    avatar: "NC",
+    avatarImage: "https://api.dicebear.com/7.x/adventurer/svg?seed=NataliCraig&backgroundColor=transparent",
+    color: "bg-gray-400"
+  },
+  {
+    id: "2",
+    name: "Drew Cano",
+    avatar: "DC",
+    avatarImage: "https://api.dicebear.com/7.x/adventurer/svg?seed=DrewCano&backgroundColor=transparent",
+    color: "bg-red-500"
+  },
+  {
+    id: "3",
+    name: "Orlando Diggs",
+    avatar: "OD",
+    avatarImage: "https://api.dicebear.com/7.x/adventurer/svg?seed=OrlandoDiggs&backgroundColor=transparent",
+    color: "bg-gray-400"
+  },
+  {
+    id: "4",
+    name: "Andi Lane",
+    avatar: "AL",
+    avatarImage: "https://api.dicebear.com/7.x/adventurer/svg?seed=AndiLane&backgroundColor=transparent",
+    color: "bg-gray-400"
+  },
+  {
+    id: "5",
+    name: "Kate Morrison",
+    avatar: "KM",
+    avatarImage: "https://api.dicebear.com/7.x/adventurer/svg?seed=KateMorrison&backgroundColor=transparent",
+    color: "bg-gray-400"
+  },
+  {
+    id: "6",
+    name: "Koray Okumus",
+    avatar: "KO",
+    avatarImage: "https://api.dicebear.com/7.x/adventurer/svg?seed=KorayOkumus&backgroundColor=transparent",
+    color: "bg-blue-500"
+  }
+];
+
+export const NotificationsPanel: React.FC = () => {
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-lg font-semibold flex items-center gap-2">
-            Notifications
-            <Badge variant="secondary" className="text-xs">6</Badge>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ScrollArea className="h-64">
-            <div className="space-y-3">
-              {notifications.map((notification) => {
-                const Icon = notification.icon;
-                return (
-                  <div key={notification.id} className="flex items-start gap-3 p-2 rounded-lg hover:bg-muted/50">
-                    <Icon className={`h-4 w-4 mt-0.5 ${
-                      notification.status === 'urgent' ? 'text-destructive' :
-                      notification.status === 'success' ? 'text-success' :
-                      'text-primary'
-                    }`} />
-                    <div className="flex-1 space-y-1">
-                      <p className="text-sm font-medium">{notification.message}</p>
-                      <p className="text-xs text-muted-foreground">{notification.time}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </ScrollArea>
-        </CardContent>
-      </Card>
+    <div className="w-72 bg-card border-l border-border p-4 overflow-y-auto h-full flex-shrink-0 transition-colors duration-150">
+      {/* Notifications Section */}
+      <div className={`mb-6 ${animations.entrance.slideLeft}`}>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold text-card-foreground">Notifications</h2>
+        </div>
 
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-lg font-semibold">Activities</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ScrollArea className="h-48">
-            <div className="space-y-3">
-              {activities.map((activity, index) => (
-                <div key={index} className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                    <span className="text-xs font-medium text-primary">
-                      {activity.name.split(' ').map(n => n[0]).join('')}
-                    </span>
+        <div className="space-y-3">
+          {notifications.map((notification) => (
+            <div key={notification.id} className="flex items-start space-x-3 p-2 hover:bg-muted/50 rounded-lg transition-colors">
+              <div className="flex-shrink-0">
+                {notification.type === "bug" ? (
+                  <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                    <Bug className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                   </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">{activity.name}</p>
-                    <p className="text-xs text-muted-foreground">{activity.action}</p>
+                ) : notification.type === "user" ? (
+                  <div className="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
+                    <User className="h-4 w-4 text-green-600 dark:text-green-400" />
                   </div>
-                  <Badge 
-                    variant={activity.priority === 'high' ? 'destructive' : 'secondary'}
-                    className="text-xs"
-                  >
-                    {activity.priority}
-                  </Badge>
-                </div>
-              ))}
+                ) : (
+                  <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center">
+                    <Bell className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+                  </div>
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm text-card-foreground truncate">{notification.title}</p>
+                <p className="text-xs text-muted-foreground">{notification.time}</p>
+              </div>
             </div>
-          </ScrollArea>
-        </CardContent>
-      </Card>
+          ))}
+        </div>
+      </div>
+
+      {/* Activities Section */}
+      <div className={`mb-6 ${animations.entrance.slideLeft}`}>
+        <h2 className="text-lg font-semibold text-card-foreground mb-4">Activities</h2>
+
+        <div className="space-y-3">
+          {activities.map((activity) => (
+            <div key={activity.id} className="flex items-start space-x-3 p-2 hover:bg-muted/50 rounded-lg transition-colors">
+              <Avatar className="h-8 w-8 flex-shrink-0">
+                {activity.avatarImage ? (
+                  <AvatarImage src={activity.avatarImage} alt={activity.user} />
+                ) : (
+                  <AvatarFallback className={`${activity.color} text-white text-xs`}>
+                    {activity.avatar}
+                  </AvatarFallback>
+                )}
+              </Avatar>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm text-card-foreground">
+                  {activity.user} {activity.action}
+                </p>
+                <p className="text-xs text-muted-foreground">{activity.time}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Contacts Section */}
+      <div className={animations.entrance.slideLeft}>
+        <h2 className="text-lg font-semibold text-card-foreground mb-4">Contacts</h2>
+
+        <div className="space-y-3">
+          {contacts.map((contact) => (
+            <div key={contact.id} className="flex items-center space-x-3 p-2 hover:bg-muted/50 rounded-lg transition-colors cursor-pointer">
+              <Avatar className="h-8 w-8 flex-shrink-0">
+                {contact.avatarImage ? (
+                  <AvatarImage src={contact.avatarImage} alt={contact.name} />
+                ) : (
+                  <AvatarFallback className={`${contact.color} text-white text-xs`}>
+                    {contact.avatar}
+                  </AvatarFallback>
+                )}
+              </Avatar>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm text-card-foreground truncate">{contact.name}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
-}
+};
