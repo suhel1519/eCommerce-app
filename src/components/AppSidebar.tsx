@@ -231,7 +231,7 @@ const MenuSectionComponent: React.FC<MenuSectionProps> = ({ section, isClickable
 
 export function AppSidebar() {
   return (
-    <Sidebar className="border-r border-border bg-card transition-colors duration-150" role="navigation" aria-label="Main navigation">
+    <Sidebar className="border-r border-border bg-card transition-colors duration-75" role="navigation" aria-label="Main navigation">
       <SidebarContent className="p-4">
         {/* User Profile */}
         <div className={`flex items-center space-x-3 mb-6 p-2 ${animations.entrance.slideLeft}`}>

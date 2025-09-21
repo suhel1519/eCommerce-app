@@ -137,7 +137,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+    transition: background-color 0.1s ease-out, color 0.1s ease-out;
   }
 
   /* Optimize theme switching performance */
@@ -145,8 +145,24 @@ All colors MUST be HSL.
     color-scheme: light dark;
   }
   
+  /* Ultra-fast theme transitions */
   * {
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
+    transition: 
+      background-color 0.1s ease-out,
+      border-color 0.1s ease-out,
+      color 0.1s ease-out,
+      fill 0.1s ease-out,
+      stroke 0.1s ease-out;
+  }
+
+  /* Disable transitions during theme change */
+  .theme-transition-disable * {
+    transition: none !important;
+  }
+
+  /* Instant theme switching for critical elements */
+  .theme-instant * {
+    transition: none !important;
   }
 }
 

@@ -1,26 +1,21 @@
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { useTheme } from 'next-themes';
+import { useCustomTheme } from '@/contexts/ThemeContext';
 import { lightTheme, darkTheme } from '@/theme/muiTheme';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode } from 'react';
 
 interface MuiThemeProviderProps {
   children: ReactNode;
 }
 
 export function MuiThemeProvider({ children }: MuiThemeProviderProps) {
-  const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const { state } = useCustomTheme();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
+  if (state.isLoading) {
     return <>{children}</>;
   }
 
-  const muiTheme = theme === 'dark' ? darkTheme : lightTheme;
+  const muiTheme = state.resolvedTheme === 'dark' ? darkTheme : lightTheme;
 
   return (
     <ThemeProvider theme={muiTheme}>

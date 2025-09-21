@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MetricCard, BarChart, LineChart, DonutChart, DataTable } from "@/components/common";
 import { animations } from "@/lib/animations";
+import { useDashboard } from "@/hooks/useDashboard";
+import { useNotifications } from "@/hooks/useNotifications";
+import { useAppSettings } from "@/hooks/useAppSettings";
 import {
-  DASHBOARD_METRICS,
   BAR_CHART_DATA,
   LOCATION_DATA,
   TOP_PRODUCTS_DATA,
@@ -13,26 +15,57 @@ import {
 } from "@/constants";
 
 const Dashboard: React.FC = () => {
+  const { metrics, isRefreshing, lastUpdated, refreshMetrics } = useDashboard();
+  const { addSuccess, addInfo } = useNotifications();
+  const { loading, setLoading } = useAppSettings();
+
+  // Example of using the notification system
+  useEffect(() => {
+    addInfo("Dashboard Loaded", "Welcome to your eCommerce dashboard!");
+  }, [addInfo]);
+
+  // Example of manual refresh
+  const handleRefresh = async () => {
+    setLoading(true);
+    await refreshMetrics();
+    addSuccess("Data Refreshed", "Dashboard data has been updated successfully!");
+    setLoading(false);
+  };
+
   return (
-    <div className="p-6 bg-background min-h-screen transition-colors duration-150">
+    <div className="p-6 bg-background min-h-screen transition-colors duration-75">
       <div className={`mb-6 ${animations.entrance.slideDown}`}>
-        <h1 className="text-2xl font-bold text-foreground">eCommerce</h1>
-        <p className="text-muted-foreground mt-1">Dashboard overview and analytics</p>
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-bold text-foreground">eCommerce</h1>
+            <p className="text-muted-foreground mt-1">Dashboard overview and analytics</p>
+            {lastUpdated && (
+              <p className="text-xs text-muted-foreground mt-1">
+                Last updated: {lastUpdated.toLocaleTimeString()}
+              </p>
+            )}
+          </div>
+          <button
+            onClick={handleRefresh}
+            disabled={isRefreshing || loading}
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 disabled:opacity-50"
+          >
+            {isRefreshing || loading ? "Refreshing..." : "Refresh Data"}
+          </button>
+        </div>
       </div>
 
       {/* Top Section - Metrics Cards and Chart */}
       <div className="flex gap-6 mb-6">
         {/* Left Side - 2x2 Grid of Metric Cards */}
         <div className="grid grid-cols-2 gap-4">
-          {DASHBOARD_METRICS.map((metric, index) => (
+          {metrics.map((metric, index) => (
             <MetricCard
               key={metric.title}
               title={metric.title}
               value={metric.value}
               change={metric.change}
-              width="w-[202px]"
-              height="h-[112px]"
-              className={metric.backgroundColor}
+              backgroundColor={metric.backgroundColor}
               animationDelay={`${index * 100}ms`}
             />
           ))}

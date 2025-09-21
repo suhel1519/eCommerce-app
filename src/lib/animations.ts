@@ -10,10 +10,10 @@ export const animations = {
   
   // Transitions
   transition: {
-    smooth: 'transition-all duration-200 ease-out',
-    fast: 'transition-all duration-150 ease-out',
-    slow: 'transition-all duration-300 ease-out',
-    bounce: 'transition-all duration-200 ease-bounce',
+    smooth: 'transition-all duration-100 ease-out',
+    fast: 'transition-all duration-75 ease-out',
+    slow: 'transition-all duration-150 ease-out',
+    bounce: 'transition-all duration-100 ease-bounce',
   },
   
   // Loading states
@@ -25,12 +25,12 @@ export const animations = {
   
   // Entrance animations
   entrance: {
-    fadeIn: 'animate-in fade-in duration-300',
-    slideUp: 'animate-in slide-in-from-bottom-4 duration-300',
-    slideDown: 'animate-in slide-in-from-top-4 duration-300',
-    slideLeft: 'animate-in slide-in-from-right-4 duration-300',
-    slideRight: 'animate-in slide-in-from-left-4 duration-300',
-    scaleIn: 'animate-in zoom-in-95 duration-200',
+    fadeIn: 'animate-in fade-in duration-200',
+    slideUp: 'animate-in slide-in-from-bottom-4 duration-200',
+    slideDown: 'animate-in slide-in-from-top-4 duration-200',
+    slideLeft: 'animate-in slide-in-from-right-4 duration-200',
+    slideRight: 'animate-in slide-in-from-left-4 duration-200',
+    scaleIn: 'animate-in zoom-in-95 duration-150',
   },
   
   // Focus states
@@ -41,9 +41,9 @@ export const animations = {
   
   // Interactive states
   interactive: {
-    button: 'hover:scale-[1.02] active:scale-[0.98] transition-transform duration-150',
-    card: 'hover:shadow-lg hover:-translate-y-1 transition-all duration-200',
-    row: 'hover:bg-gray-50 transition-colors duration-150',
+    button: 'hover:scale-[1.02] active:scale-[0.98] transition-transform duration-75',
+    card: 'hover:shadow-lg hover:-translate-y-1 transition-all duration-100',
+    row: 'hover:bg-gray-50 transition-colors duration-75',
   }
 };
 

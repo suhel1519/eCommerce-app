@@ -151,7 +151,7 @@ const contacts: ContactItem[] = [
 
 export const NotificationsPanel: React.FC = () => {
   return (
-    <div className="w-72 bg-card border-l border-border p-4 overflow-y-auto h-full flex-shrink-0 transition-colors duration-150">
+    <div className="w-72 bg-card border-l border-border p-4 overflow-y-auto h-full flex-shrink-0 transition-colors duration-75">
       {/* Notifications Section */}
       <div className={`mb-6 ${animations.entrance.slideLeft}`}>
         <div className="flex items-center justify-between mb-4">
@@ -160,7 +160,7 @@ export const NotificationsPanel: React.FC = () => {
 
         <div className="space-y-3">
           {notifications.map((notification) => (
-            <div key={notification.id} className="flex items-start space-x-3 p-2 hover:bg-muted/50 rounded-lg transition-colors">
+            <div key={notification.id} className="flex items-start space-x-3 p-2 hover:bg-muted/50 rounded-lg transition-colors duration-75">
               <div className="flex-shrink-0">
                 {notification.type === "bug" ? (
                   <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
@@ -191,7 +191,7 @@ export const NotificationsPanel: React.FC = () => {
 
         <div className="space-y-3">
           {activities.map((activity) => (
-            <div key={activity.id} className="flex items-start space-x-3 p-2 hover:bg-muted/50 rounded-lg transition-colors">
+            <div key={activity.id} className="flex items-start space-x-3 p-2 hover:bg-muted/50 rounded-lg transition-colors duration-75">
               <Avatar className="h-8 w-8 flex-shrink-0">
                 {activity.avatarImage ? (
                   <AvatarImage src={activity.avatarImage} alt={activity.user} />
@@ -218,7 +218,7 @@ export const NotificationsPanel: React.FC = () => {
 
         <div className="space-y-3">
           {contacts.map((contact) => (
-            <div key={contact.id} className="flex items-center space-x-3 p-2 hover:bg-muted/50 rounded-lg transition-colors cursor-pointer">
+            <div key={contact.id} className="flex items-center space-x-3 p-2 hover:bg-muted/50 rounded-lg transition-colors duration-75 cursor-pointer">
               <Avatar className="h-8 w-8 flex-shrink-0">
                 {contact.avatarImage ? (
                   <AvatarImage src={contact.avatarImage} alt={contact.name} />

@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { Bell, Menu, Star, RotateCcw, Copy } from "lucide-react";
-import { ThemeToggle } from "./ThemeToggle";
+import { OptimizedThemeToggle } from "./OptimizedThemeToggle";
 import { HeaderButton, SearchBar } from "@/components/common";
 import { animations } from "@/lib/animations";
 
@@ -30,7 +30,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ className }) => {
   const breadcrumb = routeBreadcrumbs[location.pathname] || { section: "Pages", page: "Unknown" };
 
   return (
-    <header className={`bg-card border-b border-border px-6 py-3 transition-colors duration-150 ${animations.entrance.slideDown}`}>
+    <header className={`bg-card border-b border-border px-6 py-3 transition-colors duration-75 ${animations.entrance.slideDown}`}>
       <div className="flex items-center justify-between">
         {/* Left side - Navigation Icons and Breadcrumb */}
         <div className="flex items-center space-x-4">
@@ -54,7 +54,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ className }) => {
           <SearchBar placeholder="Search" />
 
           {/* Theme Toggle */}
-          <ThemeToggle />
+          <OptimizedThemeToggle />
 
           {/* Refresh Icon */}
           <HeaderButton icon={RotateCcw} label="Refresh" />
